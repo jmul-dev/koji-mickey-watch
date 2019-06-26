@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet';
 import { FaVolumeUp, FaVolumeMute } from 'react-icons/fa';
 import Koji from 'koji-tools';
 
-import Game from './components/Game';
+import Clock from './components/Clock';
 
 const Container = styled.div`
     display: flex;
@@ -43,7 +43,6 @@ const Content = styled.div`
     opacity: 1;
     z-index: 1;
     color: ${() => Koji.config.style.textColor};
-    text-shadow: 0 1px 6px rgba(0,0,0,0.7);
     font-family: '${() => getFontFamily(Koji.config.general.fontFamily)}', sans-serif;
     position: relative;
     display: flex;
@@ -149,11 +148,7 @@ class HomePage extends React.Component {
                     }
                 </VolumeControl>
                 <Title>{Koji.config.general.name}</Title>
-                {this.state.start ? (
-                    <Game onFlash={(color) => this.flash(color)} muted={this.state.muted} />
-                ) : (
-                    <Start onClick={() => this.setState({ start: true })}>{Koji.config.general.buttonText}</Start>
-                )}
+				<Clock clockRadius={120} margin={40} muted={this.state.muted} />
             </Content>
         </Container>
     );

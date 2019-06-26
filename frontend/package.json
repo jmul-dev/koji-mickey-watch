@@ -10,6 +10,7 @@
     "start": "webpack-dev-server --config ./.internals/webpack.development.js --inline --hot"
   },
   "dependencies": {
+    "d3": "^5.9.2",
     "koji-tools": "^0.5.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

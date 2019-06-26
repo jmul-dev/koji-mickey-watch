@@ -1,0 +1,7 @@
+{
+	"pages": [{
+		"name": "Clock",
+        "route": "/",
+        "path": "frontend/pages/ClockPage"
+	}]
+}
