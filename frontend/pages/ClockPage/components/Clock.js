@@ -1,15 +1,18 @@
 import React from "react";
 import styled from "styled-components";
 import Koji from "koji-tools";
+import Sound from "../helpers/Sound.js";
 import * as d3 from "d3";
 import "./clock.css";
 
 const Container = styled.div`
-	width: ${({ width }) => width}px;
+	width: 320px;
 	margin: 0 auto;
 	margin-bottom: 24px;
-	background: radial-gradient(#909090, #000000);
-	border-radius: 72px;
+	background: radial-gradient(${() => Koji.config.general.radialGradientColor}, rgba(0, 0, 0, 0) 50%);
+	@media only screen and (max-width: 270px) {
+		width: 270px;
+	}
 `;
 
 const Svg = styled.svg`
@@ -72,6 +75,8 @@ class Clock extends React.Component {
 	}
 
 	componentDidMount() {
+		this.hourlyNotification = Sound.find(Koji.config.sounds.hourlyNotification);
+		this.minuteNotification = Sound.find(Koji.config.sounds.minuteNotification);
 		this.drawClock();
 		const intervalId = setInterval(() => {
 			this.updateData();
@@ -90,22 +95,22 @@ class Clock extends React.Component {
 		hourHand.value = (t.getHours() % 12) + t.getMinutes() / 60;
 		minuteHand.value = t.getMinutes();
 		secondHand.value = t.getSeconds();
+		// Play notification when we switch hour
+		if (this.hourlyNotification && !minuteHand.value && !secondHand.value) {
+			Sound.play(this.hourlyNotification, this.props.muted);
+		} else if (this.minuteNotification && !secondHand.value) {
+			Sound.play(this.minuteNotification, this.props.muted);
+		}
 		this.setState({ hourHand, minuteHand, secondHand });
 	}
 
 	moveHands() {
 		const { hourHand, minuteHand, secondHand } = this.state;
 		d3.select("#clock-hands")
-			.selectAll("image")
-			.data([hourHand, minuteHand])
+			.selectAll("image, line")
+			.data([hourHand, minuteHand, secondHand])
 			.transition()
-			.attr("transform", (d) => "rotate(" + (d.scale(d.value) + d.angleAdjustment) + ")");
-
-		d3.select("#clock-hands")
-			.select("line")
-			.data([secondHand])
-			.transition()
-			.attr("transform", (d) => "rotate(" + d.scale(d.value) + ")");
+			.attr("transform", (d) => `rotate(${d.scale(d.value) + d.angleAdjustment})`);
 	}
 
 	drawClock() {
@@ -144,7 +149,7 @@ class Clock extends React.Component {
 		const face = svg
 			.append("g")
 			.attr("id", "clock-face")
-			.attr("transform", "translate(" + (clockRadius + margin) + "," + (clockRadius + margin) + ")");
+			.attr("transform", `translate(${clockRadius + margin},${clockRadius + margin})`);
 
 		// add marks for seconds
 		face.selectAll(".second-tick")
@@ -156,7 +161,7 @@ class Clock extends React.Component {
 			.attr("x2", 0)
 			.attr("y1", secondTickStart)
 			.attr("y2", secondTickStart + secondTickLength)
-			.attr("transform", (d) => "rotate(" + secondScale(d) + ")");
+			.attr("transform", (d) => `rotate(${secondScale(d)})`);
 		//and labels
 
 		face.selectAll(".second-label")
@@ -179,7 +184,7 @@ class Clock extends React.Component {
 			.attr("x2", 0)
 			.attr("y1", hourTickStart)
 			.attr("y2", hourTickStart + hourTickLength)
-			.attr("transform", (d) => "rotate(" + hourScale(d) + ")");
+			.attr("transform", (d) => `rotate(${hourScale(d)})`);
 
 		face.selectAll(".hour-label")
 			.data(d3.range(3, 13, 3))
@@ -199,7 +204,8 @@ class Clock extends React.Component {
 			.attr("class", "hands-cover")
 			.attr("x", 0)
 			.attr("y", 0)
-			.attr("r", clockRadius / 20);
+			.attr("r", clockRadius / 20)
+			.style("fill", Koji.config.general.handsCoverColor);
 
 		// Draw hourHand and minuteHand
 		hands
@@ -208,27 +214,29 @@ class Clock extends React.Component {
 			.enter()
 			.append("image")
 			.attr("xlink:href", (d) => d.image)
-			.attr("class", (d) => d.type + "-hand")
+			.attr("class", (d) => `${d.type}-hand`)
 			.attr("x1", 0)
 			.attr("y1", (d) => d.balance)
 			.attr("x2", 0)
 			.attr("y2", (d) => d.length)
-			.attr("transform", (d) => "rotate(" + (d.scale(d.value) + d.angleAdjustment) + ")");
+			.attr("transform", (d) => `rotate(${d.scale(d.value) + d.angleAdjustment})`);
 
+		// Draw the secondHand
 		hands
 			.data([secondHand])
 			.append("line")
-			.attr("class", (d) => d.type + "-hand")
+			.attr("class", (d) => `${d.type}-hand`)
+			.attr("stroke", Koji.config.general.secondHandColor)
 			.attr("x1", 0)
 			.attr("y1", (d) => d.balance)
 			.attr("x2", 0)
 			.attr("y2", (d) => d.length)
-			.attr("transform", (d) => "rotate(" + (d.scale(d.value) + d.angleAdjustment) + ")");
+			.attr("transform", (d) => `rotate(${d.scale(d.value) + d.angleAdjustment})`);
 	}
 
 	render() {
 		return (
-			<Container width={320}>
+			<Container>
 				<Svg id="clock" />
 			</Container>
 		);

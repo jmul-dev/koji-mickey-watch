@@ -1,6 +1,7 @@
 {
   "sounds": {
-    "hourlyNotification": "https://objects.koji-cdn.com/4ed9c8e0-dd4b-42d2-b650-82e34bcf88ae/mickeywhistling.mp3"
+    "hourlyNotification": "https://objects.koji-cdn.com/4ed9c8e0-dd4b-42d2-b650-82e34bcf88ae/mickeywhistling.mp3",
+    "minuteNotification": "https://objects.koji-cdn.com/4ed9c8e0-dd4b-42d2-b650-82e34bcf88ae/mouseclick.mp3"
   },
   "@@editor": [
     {
@@ -12,7 +13,13 @@
         {
           "key": "hourlyNotification",
           "name": "Hourly Notification",
-          "description": "URL of audio file to play every hour",
+          "description": "URL of audio file to play when switching hour",
+          "type": "sound"
+        },
+        {
+          "key": "minuteNotification",
+          "name": "Minute Notification",
+          "description": "URL of audio file to play when switching minute",
           "type": "sound"
         }
       ]

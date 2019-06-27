@@ -1,15 +1,16 @@
 {
   "general": {
-    "name": "Build a Clock",
-    "fontFamily": "https://fonts.googleapis.com/css?family=Lobster",
-    "clockFace": "https://images.koji-cdn.com/4ed9c8e0-dd4b-42d2-b650-82e34bcf88ae/mickey2.png?fit=cover",
+    "name": "Mickey Watch",
+    "fontFamily": "https://fonts.googleapis.com/css?family=DM+Sans",
+    "backgroundImage": "https://images.pexels.com/photos/1341279/pexels-photo-1341279.jpeg?fit=cover",
+    "clockFace": "https://images.koji-cdn.com/4ed9c8e0-dd4b-42d2-b650-82e34bcf88ae/mickey2.png",
     "hourHand": "https://images.koji-cdn.com/4ed9c8e0-dd4b-42d2-b650-82e34bcf88ae/9c1a977dd3d241b4b9968894c5267244.png",
     "minuteHand": "https://images.koji-cdn.com/4ed9c8e0-dd4b-42d2-b650-82e34bcf88ae/61392bbb86dc42e68c2713b5d8ecc2c4.png",
     "primaryColor": "#ffffff",
     "backgroundColor": "#000000",
     "secondHandColor": "#ff0000",
-    "radialGradientColor1": "#909090",
-    "radialGradientColor2": "#000000"
+    "handsCoverColor": "#ffd905",
+    "radialGradientColor": "#909090"
   },
   "@@editor": [
     {
@@ -26,6 +27,15 @@
           "key": "fontFamily",
           "name": "Font Family",
           "description": "Google fonts link to font to use on page"
+        },
+        {
+          "key": "backgroundImage",
+          "name": "Background Image",
+          "description": "URL of Image to place as background",
+          "type": "image",
+          "typeOptions": {
+            "fit": "cover"
+          }
         },
         {
           "key": "clockFace",
@@ -64,15 +74,15 @@
           "type": "color"
         },
         {
-          "key": "radialGradientColor1",
-          "name": "Radial Gradient Color 1",
-          "description": "Start Color for the radial gradient behind clock face",
+          "key": "handsCoverColor",
+          "name": "Hands Cover Color",
+          "description": "Color to use on Hands Cover",
           "type": "color"
         },
         {
-          "key": "radialGradientColor2",
-          "name": "Radial Gradient Color 2",
-          "description": "Last Color for the radial gradient behind clock face",
+          "key": "radialGradientColor",
+          "name": "Radial Gradient Color",
+          "description": "Start Color for the radial gradient behind clock face",
           "type": "color"
         }
       ]
