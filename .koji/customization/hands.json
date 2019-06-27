@@ -1,0 +1,28 @@
+{
+  "hands": {
+    "hourHand": "https://images.koji-cdn.com/4ed9c8e0-dd4b-42d2-b650-82e34bcf88ae/9c1a977dd3d241b4b9968894c5267244.png",
+    "minuteHand": "https://images.koji-cdn.com/4ed9c8e0-dd4b-42d2-b650-82e34bcf88ae/61392bbb86dc42e68c2713b5d8ecc2c4.png"
+  },
+  "@@editor": [
+    {
+      "key": "hands",
+      "name": "Hands",
+      "icon": "👆",
+      "source": "hands.json",
+      "fields": [
+        {
+          "key": "hourHand",
+          "name": "Hour Hand Image",
+          "type": "image",
+          "description": "URL of image to put on Hour Hand"
+        },
+        {
+          "key": "minuteHand",
+          "name": "Minute Hand Image",
+          "type": "image",
+          "description": "URL of image to put on Minute Hand"
+        }
+      ]
+    }
+  ]
+}

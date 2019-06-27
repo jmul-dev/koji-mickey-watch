@@ -8,6 +8,8 @@ const Container = styled.div`
 	width: ${({ width }) => width}px;
 	margin: 0 auto;
 	margin-bottom: 24px;
+	background: radial-gradient(#909090, #000000);
+	border-radius: 72px;
 `;
 
 const Svg = styled.svg`
@@ -36,27 +38,32 @@ class Clock extends React.Component {
 			hourScale,
 			minuteScale,
 			secondScale,
-			handData: [
-				{
-					type: "hour",
-					value: 0,
-					length: 0,
-					scale: hourScale
-				},
-				{
-					type: "minute",
-					value: 0,
-					length: 0,
-					scale: minuteScale
-				},
-				{
-					type: "second",
-					value: 0,
-					length: 0,
-					scale: secondScale,
-					balance: 30
-				}
-			],
+			hourHand: {
+				type: "hour",
+				value: 0,
+				length: 0,
+				angleAdjustment: -142,
+				scale: hourScale,
+				balance: 0,
+				image: Koji.config.hands.hourHand
+			},
+			minuteHand: {
+				type: "minute",
+				value: 0,
+				length: 0,
+				angleAdjustment: -142,
+				scale: minuteScale,
+				balance: 0,
+				image: Koji.config.hands.minuteHand
+			},
+			secondHand: {
+				type: "second",
+				value: 0,
+				length: 0,
+				angleAdjustment: 0,
+				scale: secondScale,
+				balance: 30
+			},
 			intervalId: null
 		};
 		this.updateData = this.updateData.bind(this);
@@ -79,18 +86,24 @@ class Clock extends React.Component {
 
 	updateData() {
 		const t = new Date();
-		const { handData } = this.state;
-		handData[0].value = (t.getHours() % 12) + t.getMinutes() / 60;
-		handData[1].value = t.getMinutes();
-		handData[2].value = t.getSeconds();
-		this.setState({ handData });
+		const { hourHand, minuteHand, secondHand } = this.state;
+		hourHand.value = (t.getHours() % 12) + t.getMinutes() / 60;
+		minuteHand.value = t.getMinutes();
+		secondHand.value = t.getSeconds();
+		this.setState({ hourHand, minuteHand, secondHand });
 	}
 
 	moveHands() {
-		const { handData } = this.state;
+		const { hourHand, minuteHand, secondHand } = this.state;
 		d3.select("#clock-hands")
-			.selectAll("line")
-			.data(handData)
+			.selectAll("image")
+			.data([hourHand, minuteHand])
+			.transition()
+			.attr("transform", (d) => "rotate(" + (d.scale(d.value) + d.angleAdjustment) + ")");
+
+		d3.select("#clock-hands")
+			.select("line")
+			.data([secondHand])
 			.transition()
 			.attr("transform", (d) => "rotate(" + d.scale(d.value) + ")");
 	}
@@ -117,11 +130,11 @@ class Clock extends React.Component {
 			hourLabelRadius = clockRadius - 40,
 			hourLabelYOffset = 7;
 
-		const { hourScale, minuteScale, secondScale, handData } = this.state;
+		const { hourScale, minuteScale, secondScale, hourHand, minuteHand, secondHand } = this.state;
 
-		handData[0].length = -1 * hourHandLength;
-		handData[1].length = -1 * minuteHandLength;
-		handData[2].length = -1 * secondHandLength;
+		hourHand.length = -hourHandLength;
+		minuteHand.length = -minuteHandLength;
+		secondHand.length = -secondHandLength;
 
 		const svg = d3
 			.select("svg#clock")
@@ -188,17 +201,29 @@ class Clock extends React.Component {
 			.attr("y", 0)
 			.attr("r", clockRadius / 20);
 
+		// Draw hourHand and minuteHand
 		hands
-			.selectAll("line")
-			.data(handData)
+			.selectAll("image")
+			.data([hourHand, minuteHand])
 			.enter()
+			.append("image")
+			.attr("xlink:href", (d) => d.image)
+			.attr("class", (d) => d.type + "-hand")
+			.attr("x1", 0)
+			.attr("y1", (d) => d.balance)
+			.attr("x2", 0)
+			.attr("y2", (d) => d.length)
+			.attr("transform", (d) => "rotate(" + (d.scale(d.value) + d.angleAdjustment) + ")");
+
+		hands
+			.data([secondHand])
 			.append("line")
 			.attr("class", (d) => d.type + "-hand")
 			.attr("x1", 0)
-			.attr("y1", (d) => (d.balance ? d.balance : 0))
+			.attr("y1", (d) => d.balance)
 			.attr("x2", 0)
 			.attr("y2", (d) => d.length)
-			.attr("transform", (d) => "rotate(" + d.scale(d.value) + ")");
+			.attr("transform", (d) => "rotate(" + (d.scale(d.value) + d.angleAdjustment) + ")");
 	}
 
 	render() {

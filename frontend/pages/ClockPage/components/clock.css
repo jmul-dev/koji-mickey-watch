@@ -1,14 +1,6 @@
 .second-hand {
 	stroke-width: 3px;
 }
-.minute-hand {
-	stroke-width: 5px;
-	stroke-linecap: round;
-}
-.hour-hand {
-	stroke-width: 8px;
-	stroke-linecap: round;
-}
 .hands-cover {
 	stroke-width: 3px;
 	fill: #fff;
