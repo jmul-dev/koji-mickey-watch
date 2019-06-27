@@ -2,7 +2,7 @@
   "general": {
     "name": "Mickey Watch",
     "fontFamily": "https://fonts.googleapis.com/css?family=DM+Sans",
-    "backgroundImage": "https://images.pexels.com/photos/1341279/pexels-photo-1341279.jpeg?fit=cover",
+    "backgroundImage": "https://objects.koji-cdn.com/4ed9c8e0-dd4b-42d2-b650-82e34bcf88ae/eeb4e1d1ee89426b84099364df28bbcf.jpegfitcover?fit=cover",
     "clockFace": "https://images.koji-cdn.com/4ed9c8e0-dd4b-42d2-b650-82e34bcf88ae/mickey2.png",
     "hourHand": "https://images.koji-cdn.com/4ed9c8e0-dd4b-42d2-b650-82e34bcf88ae/9c1a977dd3d241b4b9968894c5267244.png",
     "minuteHand": "https://images.koji-cdn.com/4ed9c8e0-dd4b-42d2-b650-82e34bcf88ae/61392bbb86dc42e68c2713b5d8ecc2c4.png",
