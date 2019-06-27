@@ -13,8 +13,8 @@ const Container = styled.div`
 `;
 
 const Svg = styled.svg`
-	stroke: ${() => Koji.config.style.textColor};
-	background: url(${() => Koji.config.general.backgroundImage});
+	stroke: ${() => Koji.config.general.primaryColor};
+	background: url(${() => Koji.config.general.clockFace});
 	background-size: 100px;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -45,7 +45,7 @@ class Clock extends React.Component {
 				angleAdjustment: -142,
 				scale: hourScale,
 				balance: 0,
-				image: Koji.config.hands.hourHand
+				image: Koji.config.general.hourHand
 			},
 			minuteHand: {
 				type: "minute",
@@ -54,7 +54,7 @@ class Clock extends React.Component {
 				angleAdjustment: -142,
 				scale: minuteScale,
 				balance: 0,
-				image: Koji.config.hands.minuteHand
+				image: Koji.config.general.minuteHand
 			},
 			secondHand: {
 				type: "second",

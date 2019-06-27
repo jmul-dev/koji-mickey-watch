@@ -1,20 +1,21 @@
 {
   "general": {
     "name": "Build a Clock",
-    "buttonText": "Start",
     "fontFamily": "https://fonts.googleapis.com/css?family=Lobster",
-    "backgroundImage": "https://images.koji-cdn.com/4ed9c8e0-dd4b-42d2-b650-82e34bcf88ae/mickey2.png?fit=cover",
-    "width": "5",
-    "height": "8",
-    "animationLength": "500",
-    "baseScore": "60",
-    "moves": "20"
+    "clockFace": "https://images.koji-cdn.com/4ed9c8e0-dd4b-42d2-b650-82e34bcf88ae/mickey2.png?fit=cover",
+    "hourHand": "https://images.koji-cdn.com/4ed9c8e0-dd4b-42d2-b650-82e34bcf88ae/9c1a977dd3d241b4b9968894c5267244.png",
+    "minuteHand": "https://images.koji-cdn.com/4ed9c8e0-dd4b-42d2-b650-82e34bcf88ae/61392bbb86dc42e68c2713b5d8ecc2c4.png",
+    "primaryColor": "#ffffff",
+    "backgroundColor": "#000000",
+    "secondHandColor": "#ff0000",
+    "radialGradientColor1": "#909090",
+    "radialGradientColor2": "#000000"
   },
   "@@editor": [
     {
       "key": "general",
-      "name": "Game settings",
-      "icon": "🎮",
+      "name": "Clock Settings",
+      "icon": "⏰",
       "source": "general.json",
       "fields": [
         {
@@ -22,47 +23,57 @@
           "name": "App name"
         },
         {
-          "key": "buttonText",
-          "name": "Start Button Text"
-        },
-        {
           "key": "fontFamily",
           "name": "Font Family",
           "description": "Google fonts link to font to use on page"
         },
         {
-          "key": "backgroundImage",
-          "name": "Background Image",
-          "description": "URL of Image to place as background",
+          "key": "clockFace",
+          "name": "Clock Face Image",
+          "description": "URL of Image to place as clock face",
+          "type": "image"
+        },
+        {
+          "key": "hourHand",
+          "name": "Hour Hand Image",
           "type": "image",
-          "typeOptions": {
-            "fit": "cover"
-          }
+          "description": "URL of image to put on Hour Hand"
         },
         {
-          "key": "width",
-          "name": "Width",
-          "description": "Number of pieces per row"
+          "key": "minuteHand",
+          "name": "Minute Hand Image",
+          "type": "image",
+          "description": "URL of image to put on Minute Hand"
         },
         {
-          "key": "height",
-          "name": "Height",
-          "description": "Number of pieces per column"
+          "key": "primaryColor",
+          "name": "Primary Color",
+          "description": "Primary color",
+          "type": "color"
         },
         {
-          "key": "moves",
-          "name": "Moves Per Game",
-          "description": "Number of times the user can move a piece per game"
+          "key": "backgroundColor",
+          "name": "Background Color",
+          "description": "Background color",
+          "type": "color"
         },
         {
-          "key": "baseScore",
-          "name": "Base Score",
-          "description": "Minimum score per piece matched"
+          "key": "secondHandColor",
+          "name": "Second Hand Color",
+          "description": "Color to use on Second Hand",
+          "type": "color"
         },
         {
-          "key": "animationLength",
-          "name": "Animation Length",
-          "description": "Time in milliseconds to animate each piece movement"
+          "key": "radialGradientColor1",
+          "name": "Radial Gradient Color 1",
+          "description": "Start Color for the radial gradient behind clock face",
+          "type": "color"
+        },
+        {
+          "key": "radialGradientColor2",
+          "name": "Radial Gradient Color 2",
+          "description": "Last Color for the radial gradient behind clock face",
+          "type": "color"
         }
       ]
     }

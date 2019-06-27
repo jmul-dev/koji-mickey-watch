@@ -11,7 +11,7 @@ const Container = styled.div`
 	align-items: center;
 	width: 100%;
 	height: 100vh;
-	background-color: ${() => Koji.config.style.backgroundColor};
+	background-color: ${() => Koji.config.general.backgroundColor};
 	flex-direction: column;
 	text-align: center;
 `;
@@ -40,7 +40,7 @@ const Content = styled.div`
     height: 100vh;
     opacity: 1;
     z-index: 1;
-    color: ${() => Koji.config.style.textColor};
+    color: ${() => Koji.config.general.textColor};
     font-family: '${() => getFontFamily(Koji.config.general.fontFamily)}', sans-serif;
     position: relative;
     display: flex;
@@ -87,8 +87,8 @@ const Start = styled.button`
 	max-width: 320px;
 	font-size: 24px;
 	background: rgba(0, 0, 0, 0.7);
-	border: 4px solid ${() => Koji.config.style.textColor};
-	color: ${() => Koji.config.style.textColor};
+	border: 4px solid ${() => Koji.config.general.primaryColor};
+	color: ${() => Koji.config.general.primaryColor};
 	box-shadow: 0 2px 12px rgba(0, 0, 0, 0.24);
 	text-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
 	cursor: pointer;
